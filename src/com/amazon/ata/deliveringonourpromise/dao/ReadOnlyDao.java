@@ -2,6 +2,8 @@ package com.amazon.ata.deliveringonourpromise.dao;
 
 /**
  * DAO interface to abstract calls.
+ * @param <I> I is a placeholder for the type O
+ * @param <O> O represents order
  */
 public interface ReadOnlyDao<I, O> {
 
