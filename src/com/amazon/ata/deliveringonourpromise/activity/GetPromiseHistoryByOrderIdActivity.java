@@ -38,21 +38,21 @@ public class GetPromiseHistoryByOrderIdActivity {
         if (null == orderId) {
             throw new IllegalArgumentException("order ID cannot be null");
         }
-
+        //FixMe: when order is null handle it before throwing exception
         Order order = orderDao.get(orderId);
-
-        List<OrderItem> customerOrderItems = order.getCustomerOrderItemList();
-        OrderItem customerOrderItem = null;
-        if (customerOrderItems != null && !customerOrderItems.isEmpty()) {
-            customerOrderItem = customerOrderItems.get(0);
-        }
-
         PromiseHistory history = new PromiseHistory(order);
-        if (customerOrderItem != null) {
-            List<Promise> promises = promiseDao.get(customerOrderItem.getCustomerOrderItemId());
-            for (Promise promise : promises) {
-                promise.setConfidence(customerOrderItem.isConfidenceTracked(), customerOrderItem.getConfidence());
-                history.addPromise(promise);
+        if (null != order) {
+            List<OrderItem> customerOrderItems = order.getCustomerOrderItemList();
+            OrderItem customerOrderItem = null;
+            if (customerOrderItems != null && !customerOrderItems.isEmpty()) {
+                customerOrderItem = customerOrderItems.get(0);
+            }
+            if (customerOrderItem != null) {
+                List<Promise> promises = promiseDao.get(customerOrderItem.getCustomerOrderItemId());
+                for (Promise promise : promises) {
+                    promise.setConfidence(customerOrderItem.isConfidenceTracked(), customerOrderItem.getConfidence());
+                    history.addPromise(promise);
+                }
             }
         }
 

@@ -48,7 +48,7 @@ public class Shell {
         this.inputHandler = userHandler;
     }
 
-    // FIXME: I need some code to mess up Checkstyle. I put opening braces on their own line
+
     /**
      * Command Line Interface entry point. Arguments are ignored.
      *

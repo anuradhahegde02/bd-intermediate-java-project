@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -32,6 +31,7 @@ public class GetPromiseHistoryByOrderIdActivityTest {
         activity = new GetPromiseHistoryByOrderIdActivity(orderDao, promiseDao);
     }
 
+
     @Test
     public void getPromiseHistoryByOrderId_nullOrderId_isRejected() {
         // GIVEN
@@ -41,7 +41,19 @@ public class GetPromiseHistoryByOrderIdActivityTest {
         // (participants: we'll learn what this is doing later in the course)
         assertThrows(IllegalArgumentException.class, () -> activity.getPromiseHistoryByOrderId(orderId));
     }
-
+    @Test
+    public void getPromiseHistoryByOrderId_noOrderDetails_promtsUserWithProperMessage(){
+        //Given
+        String orderId = "111-749023-7630574";
+        //When
+        PromiseHistory history=null;
+        try {
+             history = activity.getPromiseHistoryByOrderId(orderId);
+        }catch (NullPointerException e){
+           fail("Excpected Not to through Exception when order details are null.");
+        }
+        assertNull(history.getOrder(), "order detail is null for orderID= "+orderId);
+    }
     @Test
     public void getPromiseHistoryByOrderId_orderWithDpsPromise_returnsDpsPromise() {
         // GIVEN - an order that hasn't shipped yet but should return a DPS promise
