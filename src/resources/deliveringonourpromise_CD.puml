@@ -1,0 +1,31 @@
+@startuml
+class PromiseHistoryClient{}
+class GetPromiseHistoryByOrderIdActivity{}
+class OrderDao{}
+class PromiseDao{}
+class OrderManipulationAuthorityClient{}
+class DeliveryPromiseServiceClient{}
+class App{}
+class Order{}
+class OrderItem{}
+class Promise{}
+class PromiseHistory{}
+Interface ReadOnlyDao{}
+
+
+PromiseHistoryClient -- GetPromiseHistoryByOrderIdActivity
+GetPromiseHistoryByOrderIdActivity o-- PromiseDao
+GetPromiseHistoryByOrderIdActivity o-- OrderDao
+PromiseDao *-- DeliveryPromiseServiceClient
+PromiseDao *-- OrderManipulationAuthorityClient
+OrderDao *-- OrderManipulationAuthorityClient
+PromiseHistory -- Order
+PromiseHistory -- Promise
+Order -- OrderItem
+
+OrderDao ..|> ReadOnlyDao
+PromiseDao ..|> ReadOnlyDao
+
+
+
+@enduml
