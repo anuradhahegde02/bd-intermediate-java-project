@@ -41,6 +41,15 @@ public class PromiseHistory {
         promises.add(newPromise);
     }
 
+    public void addAllPromise(List<Promise> listOfPromises) {
+        if (null == listOfPromises) {
+            throw new IllegalArgumentException("PromiseHistory cannot accept null Promises");
+        }
+
+
+        promises.addAll(listOfPromises);
+    }
+
     /**
      * Returns the promise history's promises.
      *
@@ -49,4 +58,6 @@ public class PromiseHistory {
     public List<Promise> getPromises() {
         return new ArrayList<>(promises);
     }
+
+
 }

@@ -1,11 +1,12 @@
 package com.amazon.ata.deliveringonourpromise.types;
 
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * Represents a customer promise, regardless of which service/stage of the order process
  * the promise was made.
- *
+ * <p>
  * Use the Builder pattern to populate a Promise object:
  *
  * <pre>{@code
@@ -16,15 +17,15 @@ import java.time.ZonedDateTime;
  *                            .withPromiseProvidedBy("OFS")
  *                            .build();
  * }</pre>
- *
+ * <p>
  * Explanation of fields:
  * * customerOrderItemId: the ID of the item in the customer's order that this Promise is relevant for
  * * asin: the ASIN that the order item includes
  * * isActive: boolean indicating whether the promise is currently relevant (true)
- *             or superseded by another promise (false)
+ * or superseded by another promise (false)
  * * promiseEffectiveDate: the timestamp that the promise became the relevant/active promise
  * * promiseLatestArrivalDate: timestamp of the latest time item can be delivered and still meet promise made
- *                             to customer
+ * to customer
  * * promiseLatestShipDate: timestamp of latest time item can be shipped and meet customer promise
  * * deliveryDate: timestamp of when the item was delivered (or null if it hasn't been delivered yet)
  * * promiseProvidedBy: where the promise came from (which service)
@@ -40,10 +41,13 @@ public class Promise {
     private String promiseProvidedBy;
     private int confidence;
 
-    private Promise() {}
+    private Promise() {
+    }
+
 
     /**
      * Creates a new builder for populating a Promise.
+     *
      * @return new builder ready to build.
      */
     public static Builder builder() {
@@ -90,9 +94,10 @@ public class Promise {
      * Sets the confidence value associated with the item ID this promise corresponds to. Allow setting
      * it after build/instantiation to allow centralization of logic across promise providers, and to
      * accommodate tracking determination.
+     *
      * @param isConfidenceTracked Whether this item is one of the items tracked by Global Transportation.
-     * @param trackedConfidence The confidence in promises related to this item, if tracked; otherwise a random
-     * integer that should be ignored.
+     * @param trackedConfidence   The confidence in promises related to this item, if tracked; otherwise a random
+     *                            integer that should be ignored.
      */
     public void setConfidence(boolean isConfidenceTracked, int trackedConfidence) {
         this.confidence = trackedConfidence;
@@ -101,6 +106,7 @@ public class Promise {
     /**
      * Sets the delivery date associated with the order item ID this promise corresponds to. Allow
      * setting it after build/instantiation to allow centralization of logic across promise providers.
+     *
      * @param deliveryDate the ZonedDateTime containing the delivery date for the shipment containing the order ID
      */
     public void setDeliveryDate(ZonedDateTime deliveryDate) {
@@ -110,16 +116,30 @@ public class Promise {
     @Override
     public String toString() {
         return "Promise{" +
-               "customerOrderItemId='" + customerOrderItemId + '\'' +
-               ", asin='" + asin + '\'' +
-               ", isActive=" + active +
-               ", promiseEffectiveDate=" + promiseEffectiveDate +
-               ", promiseLatestArrivalDate=" + promiseLatestArrivalDate +
-               ", promiseLatestShipDate=" + promiseLatestShipDate +
-               ", deliveryDate=" + deliveryDate +
-               ", promiseProvidedBy='" + promiseProvidedBy + '\'' +
-               '}';
+                "customerOrderItemId='" + customerOrderItemId + '\'' +
+                ", asin='" + asin + '\'' +
+                ", isActive=" + active +
+                ", promiseEffectiveDate=" + promiseEffectiveDate +
+                ", promiseLatestArrivalDate=" + promiseLatestArrivalDate +
+                ", promiseLatestShipDate=" + promiseLatestShipDate +
+                ", deliveryDate=" + deliveryDate +
+                ", promiseProvidedBy='" + promiseProvidedBy + '\'' +
+                '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Promise promise = (Promise) o;
+        return Objects.equals(customerOrderItemId, promise.customerOrderItemId) && Objects.equals(asin, promise.asin);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerOrderItemId, asin);
+    }
+
 
     /**
      * Builder for Promises. See Promise documentation.
@@ -180,6 +200,7 @@ public class Promise {
 
         /**
          * build the Promise from the provided data.
+         *
          * @return the populated Promise
          */
         public Promise build() {
