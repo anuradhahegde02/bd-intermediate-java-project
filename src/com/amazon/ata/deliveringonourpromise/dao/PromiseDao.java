@@ -27,6 +27,7 @@ public class PromiseDao implements ReadOnlyDao<String, List<Promise>> {
      *
      * @param dpsClient DeliveryPromiseServiceClient for DAO to access DPS
      * @param omaClient OrderManipulationAuthorityClient for DAO to access OMA
+     * @param ofsClient OrderFulfillmentAuthorityClient for DAO to access OFS
      */
     public PromiseDao(DeliveryPromiseServiceClient dpsClient, OrderManipulationAuthorityClient omaClient, OrderFulfillmentServiceClient ofsClient) {
         this.dpsClient = dpsClient;
@@ -37,10 +38,10 @@ public class PromiseDao implements ReadOnlyDao<String, List<Promise>> {
     /**
      * PromiseDao constructor, accepting list of  service clients for DPS ,OMA and OFS
      *
-     * @param daos list of  service clients orderly
-     *             daos[0]= DPS
-     *             daos[1]=OMA
-     *             daos[2]=OFS
+     * @param omaClient OrderManipulationAuthorityClient for DAO to access OMA
+     * @param daos      list of  service clients orderly
+     *                  daos[0]= DPS
+     *                  daos[1]=OFS
      */
     public PromiseDao(OrderManipulationAuthorityClient omaClient, List<ReadOnlyClient> daos) {
         this.omaClient = omaClient;
@@ -73,9 +74,12 @@ public class PromiseDao implements ReadOnlyDao<String, List<Promise>> {
     }
 
 
+    /**
+     * Returns Promises from OFS
+     * @param orderId ID associated with order
+     * @return promises associated with the order from OFS
+     */
     public List<Promise> getFulfillmentDetails(String orderId) {
-        // Fetch the delivery date, so we can add to any promises that we find
-        ZonedDateTime itemDeliveryDate = getDeliveryDateForOrderItem(orderId);
 
         List<Promise> dfsPromises = new ArrayList<>();
 

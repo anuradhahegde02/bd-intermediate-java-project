@@ -41,6 +41,11 @@ public class PromiseHistory {
         promises.add(newPromise);
     }
 
+    /**
+     * Adds all promises to give list
+     *
+     * @param listOfPromises list of promises need to be added
+     */
     public void addAllPromise(List<Promise> listOfPromises) {
         if (null == listOfPromises) {
             throw new IllegalArgumentException("PromiseHistory cannot accept null Promises");

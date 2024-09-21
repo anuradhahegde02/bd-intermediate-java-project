@@ -1,6 +1,6 @@
 package com.amazon.ata.deliveringonourpromise.ordermanipulationauthority;
 
-import com.amazon.ata.deliveringonourpromise.ReadOnlyClient;
+
 import com.amazon.ata.ordermanipulationauthority.OrderManipulationAuthority;
 import com.amazon.ata.ordermanipulationauthority.OrderResult;
 import com.amazon.ata.ordermanipulationauthority.OrderResultItem;

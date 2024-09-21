@@ -129,8 +129,12 @@ public class Promise {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Promise promise = (Promise) o;
         return Objects.equals(customerOrderItemId, promise.customerOrderItemId) && Objects.equals(asin, promise.asin);
     }

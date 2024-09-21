@@ -8,13 +8,11 @@ import com.amazon.ata.deliveringonourpromise.deliverypromiseservice.DeliveryProm
 import com.amazon.ata.deliveringonourpromise.orderfulfillmentservice.OrderFulfillmentServiceClient;
 import com.amazon.ata.deliveringonourpromise.ordermanipulationauthority.OrderManipulationAuthorityClient;
 import com.amazon.ata.deliveringonourpromise.promisehistoryservice.PromiseHistoryClient;
-import com.amazon.ata.deliveringonourpromise.types.Promise;
 import com.amazon.ata.deliverypromiseservice.service.DeliveryPromiseService;
 import com.amazon.ata.orderfulfillmentservice.OrderFulfillmentService;
 import com.amazon.ata.ordermanipulationauthority.OrderManipulationAuthority;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Provides inversion of control for the DeliveringOnOurPromise project by instantiating all of the
