@@ -29,14 +29,15 @@ public class PromiseDao implements ReadOnlyDao<String, List<Promise>> {
      * @param omaClient OrderManipulationAuthorityClient for DAO to access OMA
      * @param ofsClient OrderFulfillmentAuthorityClient for DAO to access OFS
      */
-    public PromiseDao(DeliveryPromiseServiceClient dpsClient, OrderManipulationAuthorityClient omaClient, OrderFulfillmentServiceClient ofsClient) {
+    public PromiseDao(DeliveryPromiseServiceClient dpsClient, OrderManipulationAuthorityClient omaClient,
+                      OrderFulfillmentServiceClient ofsClient) {
         this.dpsClient = dpsClient;
         this.omaClient = omaClient;
         this.ofsClient = ofsClient;
     }
 
     /**
-     * PromiseDao constructor, accepting list of  service clients for DPS ,OMA and OFS
+     * PromiseDao constructor, accepting list of  service clients for DPS ,OMA and OFS.
      *
      * @param omaClient OrderManipulationAuthorityClient for DAO to access OMA
      * @param daos      list of  service clients orderly
@@ -75,7 +76,7 @@ public class PromiseDao implements ReadOnlyDao<String, List<Promise>> {
 
 
     /**
-     * Returns Promises from OFS
+     * Returns Promises from OFS.
      * @param orderId ID associated with order
      * @return promises associated with the order from OFS
      */

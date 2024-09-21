@@ -42,7 +42,7 @@ public class PromiseHistory {
     }
 
     /**
-     * Adds all promises to give list
+     * Adds all promises to give list.
      *
      * @param listOfPromises list of promises need to be added
      */
